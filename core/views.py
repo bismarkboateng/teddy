@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from .forms import SignupForm
 
 
-
 def Signup(request):
     
     if request.method == "POST":
@@ -20,3 +19,6 @@ def Signup(request):
     return render(request, "core/signup.html", {
         "form": form
     })
+
+
+
