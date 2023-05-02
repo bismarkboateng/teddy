@@ -1,0 +1,23 @@
+{% extends 'products/base.html' %}
+
+{% block title %}
+Teddy 
+{% endblock %}
+
+
+{% block content %}
+
+
+ <div class="grid grid-cols-3">
+   {% for product in products %}
+   <a href="{% url 'products:detail' product.id %}">
+      <div class="m-7">
+         <img src="{{ product.image.url }}" >
+
+         <p>Name: {{ product.name }} </p>
+         <p>Price: {{ product.price }} </p>
+      </div>
+   </a>
+   {% endfor %}
+</div>
+{% endblock %}
