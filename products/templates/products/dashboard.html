@@ -1,0 +1,22 @@
+{% extends 'products/base.html' %}
+
+{% block title %}
+Dashboard | Teddy 
+{% endblock %}
+
+
+{% block content %}
+<div class="bg-[#e6ecf0] p-10 m-10 flex rounded-xl">
+    <h5 class="font-semibold mb-5"> My Items </h5>
+    {% for product in products %}
+    <a href="{% url 'products:detail' product.id %}" class="mt-5 mr-5">
+       <div class="m-7">
+          <img src="{{ product.image.url }}" >
+ 
+          <p>Name: {{ product.name }} </p>
+          <p>Price: {{ product.price }} </p>
+       </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

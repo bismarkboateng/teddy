@@ -2,8 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Category
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .forms import NewItemForm
-
+from .forms import NewItemForm, EditProductForm
 
 
 def index(request):
@@ -64,4 +63,42 @@ def new(request):
 
     return render(request, "products/new.html", {
         "form":form
+    })
+
+
+@login_required
+def dashboard(request):
+    products = Product.objects.filter(created_by=request.user)
+
+    return render(request, "products/dashboard.html", {
+        "products": products
+    })
+
+
+@login_required
+def delete(request, id):
+    product = Product.objects.get(id=id)
+    product.delete()
+
+    return redirect("products:index")
+
+
+@login_required
+def edit(request, id):
+    product = get_object_or_404(Product, id=id, created_by=request.user)
+
+    if request.method == "POST":
+        form = EditProductForm(request.POST, request.FILES, instance=product)
+
+        if form.is_valid():
+            form.save()
+            
+            return redirect("products:detail", id=product.id)
+
+    else:
+        form = EditProductForm(instance=product)
+
+    return render(request, "products/edit.html", {
+        "form": form,
+        "title": "Edit Item"
     })
