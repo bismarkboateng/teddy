@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Category
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from .forms import NewItemForm
 
 
 
@@ -42,4 +43,25 @@ def browse(request):
     return render(request, "products/browse.html", {
         "products": products,
         "categories": category
+    })
+
+
+@login_required
+def new(request):
+
+    if request.method == "POST":
+        form = NewItemForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.created_by = request.user
+            form.save()
+            
+            return redirect("products:index") # will be changed to point to dashboard
+
+    else:
+        form = NewItemForm()
+
+    return render(request, "products/new.html", {
+        "form":form
     })

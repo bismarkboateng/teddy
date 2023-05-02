@@ -16,7 +16,7 @@
             </a>
 
             <div class="flex flex-row items-center">
-                <a href="#" class="hover:text-gray-500 mr-5 font-semibold" >New Item</a>
+                <a href="{% url 'products:new' %}" class="hover:text-gray-500 mr-5 font-semibold" >New Item</a>
                 <a href="{% url 'products:browse' %}" class="hover:text-gray-500 mr-5 font-semibold" >Browse</a>
 
                 {% if request.user.is_authenticated %}

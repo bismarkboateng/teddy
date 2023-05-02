@@ -1,0 +1,48 @@
+{% extends 'products/base.html' %}
+
+{% block title %}
+New Item | Teddy
+{% endblock %}
+
+
+{% block content %}
+    <div class="w-1/2 mx-auto bg-[#e6ecf0] m-5 p-6">
+        <form method="post" action="{% url 'products:new' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label>Category</label><br>
+                {{ form.category}}
+            </div>
+    
+            <div class="mt-2 mb-2">
+                <label>Price</label> <br>
+                {{ form.price }}
+            </div>
+    
+            <div class="mt-2 mb-2">
+                <label>Name</label> <br>
+                {{ form.name }}
+            </div>
+    
+            <div class="mt-2 mb-2">
+                <label>Description</label> <br>
+                {{ form.description }}
+            </div>
+    
+            <div class="mt-2 mb-2">
+                <label>Image</label> <br>
+                {{ form.image }}
+            </div>
+    
+            <div class="mt-2 mb-2">
+                <label>is_sold</label>
+                {{ form.is_sold }}
+            </div>
+
+            <button class="bg-green-400 px-6 py-2 text-white mt-5 font-semibold rounded-xl">Add Item</button>
+
+        </form>
+
+    </div>
+
+{% endblock %}
